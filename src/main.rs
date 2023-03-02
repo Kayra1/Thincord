@@ -2,8 +2,8 @@ use std::{io};
 use tui::{backend::CrosstermBackend, Terminal };
 use crossterm::{ execute, terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen} };
 
-mod thincord;
-use crate::thincord::{main_loop, AppState};
+mod app;
+use crate::app::{main_loop};
 
 fn main() -> Result<(), io::Error> {
     // 1. Enable Terminal
@@ -13,8 +13,8 @@ fn main() -> Result<(), io::Error> {
     let mut terminal = Terminal::new(backend)?;
 
     // 2. Run Program
-    let mut state: AppState = AppState::new();
-    let result = main_loop(&mut terminal, &mut state);
+    
+    let result = main_loop(&mut terminal);
 
     // 3. Disable Terminals
     disable_raw_mode()?;

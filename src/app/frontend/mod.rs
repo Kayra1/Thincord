@@ -1,11 +1,11 @@
 
 use tui::{Frame, backend::{Backend}, layout::{Layout, Direction, Constraint, Rect}, widgets::{Block, Borders, BorderType}};
-use crate::AppState;
+use crate::app::backend::AppState;
 
 mod login;
 
-pub fn main_ui<B: Backend>(f: &mut Frame<B>, app_state: &mut AppState) {
-    if !app_state.logged_in {
+pub(super) fn main_ui<B: Backend>(f: &mut Frame<B>, app_state: &mut AppState) {
+    if !app_state.logged_in() {
         login::login_ui(f, app_state);
         return;
     }
