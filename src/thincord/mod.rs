@@ -1,8 +1,8 @@
 use crossterm::event::{self, Event, KeyCode};
-use tui::{backend::{Backend}, Terminal, Frame, layout::{Layout, Direction, Constraint, Rect}, widgets::{Block, Borders, BorderType}};
+use tui::{backend::{Backend}, Terminal};
 
-mod login;
-use crate::thincord::login::login_ui;
+mod frontend;
+// mod backend;
 
 enum Menu {
     Login,
@@ -17,7 +17,7 @@ enum Operator {
     Escape
 }
 
-pub struct State {
+pub struct AppState {
     // Authentication State
     logged_in: bool,
     client_id: String,
@@ -31,9 +31,9 @@ pub struct State {
     // Application Data
 }
 
-impl State {
-    pub fn new() -> State {
-        State {
+impl AppState {
+    pub fn new() -> AppState {
+        AppState {
             logged_in: false,
             client_id: String::with_capacity(64),
             client_secret: String::with_capacity(64),
@@ -48,9 +48,9 @@ impl State {
     }
 }
 
-pub fn start<B: Backend>(terminal: &mut Terminal<B>, app_state: &mut State) -> Result<(), std::io::Error>{
+pub fn main_loop<B: Backend>(terminal: &mut Terminal<B>, app_state: &mut AppState) -> Result<(), std::io::Error>{
     loop {
-        terminal.draw(|f| main_ui(f, app_state));
+        terminal.draw(|f| frontend::main_ui(f, app_state));
 
         let event: Event = event::read()?;
         match event{
@@ -69,33 +69,3 @@ pub fn start<B: Backend>(terminal: &mut Terminal<B>, app_state: &mut State) -> R
     }
     Ok(())
 }
-
-fn main_ui<B: Backend>(f: &mut Frame<B>, app_state: &mut State) {
-    if !app_state.logged_in {
-        login_ui(f, app_state);
-        return;
-    }
-    let parent_chunk: Vec<Rect> = Layout::default()
-        .direction(Direction::Horizontal)
-        .constraints(
-            [
-                Constraint::Percentage(30),
-                Constraint::Percentage(70),
-            ].as_ref()
-        )
-        .split(f.size());
-    
-    let contacts_block = Block::default()
-        .title("Contacts")
-        .borders(Borders::ALL)
-        .border_type(BorderType::Rounded);
-    f.render_widget(contacts_block, parent_chunk[0]);
-
-    let messages_block = Block::default()
-        .title("Messages")
-        .borders(Borders::ALL)
-        .border_type(BorderType::Rounded);
-    f.render_widget(messages_block, parent_chunk[1]);
-
-}
-

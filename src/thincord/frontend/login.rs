@@ -1,8 +1,9 @@
 
 use tui::{backend::{Backend}, Frame, layout::{Layout, Direction, Constraint, Alignment}, widgets::{Block, Borders, BorderType, Paragraph, Wrap}, text::{Spans, Span}, style::{Style, Modifier}};
-use crate::thincord::{State, Operator};
+use crate::thincord::{AppState, Operator};
 
-pub fn login_ui<B: Backend>(f: &mut Frame<B>, app_state: &mut State) {
+
+pub fn login_ui<B: Backend>(f: &mut Frame<B>, app_state: &mut AppState) {
     let parent_chunk = Layout::default()
         .direction(Direction::Vertical)
         .constraints(
