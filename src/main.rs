@@ -13,7 +13,6 @@ fn main() -> Result<(), io::Error> {
     let mut terminal = Terminal::new(backend)?;
 
     // 2. Run Program
-    
     let result = main_loop(&mut terminal);
 
     // 3. Disable Terminals

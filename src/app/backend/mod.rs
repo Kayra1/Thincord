@@ -1,4 +1,4 @@
-pub(super) struct AppState {
+pub(crate) struct AppState {
     // Authentication State
     logged_in: bool,
     client_id: String,
@@ -56,6 +56,10 @@ impl AppState {
         self.client_secret.as_ref()
     }
 
+    pub(crate) fn set_client_secret(&mut self, client_secret: String) {
+        self.client_secret = client_secret;
+    }
+
     pub(super) fn input_text(&self) -> &str {
         self.input_text.as_ref()
     }
@@ -71,4 +75,29 @@ impl AppState {
     pub(super) fn set_last_operator(&mut self, last_operator: Operator) {
         self.last_operator = last_operator;
     }
+
+    pub(super) fn client_id_is_valid(&self) -> bool {
+        return !self.client_id().is_empty()
+    }
+
+    pub(super) fn client_secret_is_valid(&self) -> bool {
+        return !self.client_secret().is_empty()
+    }
+
+
+    pub(crate) fn save_client_id(&mut self){
+        // TODO: Do validation here
+        self.set_client_id(self.input_text().to_string());
+        self.input_text_mut().clear();
+        self.set_last_operator(Operator::None);
+    }
+    
+    pub(crate) fn save_client_secret(&mut self){
+        // TODO: Do validation here
+        self.set_client_secret(self.input_text().to_string());
+        self.input_text_mut().clear();
+        self.set_last_operator(Operator::None);
+    }
+
+    
 }
