@@ -9,7 +9,7 @@ Are you tired of Discord hogging up all of your system resources? Do you just wa
 * Available for anything with a keyboard that can run rust binaries
 
 ## Getting started
-To get started with Thincord, simply download the source code and compile the program. A binary release will be available after the release of 1.0. Because discord doesn't provide an API for direct users, you will need to create a bot using Discord's developer portal. Once you input the client ID and secret into the program, you will be able to see all of your active DM's, and will be able to join any voice channel in your preferred.
+To get started with Thincord, simply download the source code and compile the program. A binary release will be available after the release of 1.0. Because discord doesn't provide an API for direct users, you will need to create a bot using Discord's developer portal. Your client id and client secret will be saved to the operating system secure storage service (keychain, keyring etc.). Once you input the client ID and secret into the program, you will be able to see all of your active DM's, and will be able to join any voice channel in your preferred.
 
 ## Contributing
 Thincord is open source and contributions are welcome! If you are interested in contributing to the project, please check out the upcoming contribution guidelines for more information.
